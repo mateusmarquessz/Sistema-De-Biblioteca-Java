@@ -1,63 +1,51 @@
 package model;
 
+import java.util.Date;
+
 public class Emprestimo {
     private int idEmprestimo;
     private int idLivro;
     private int idAutor;
-    private String titulo;
-    private String descricao;
-    private String dataDeCadastro;
-
-    public Emprestimo() {
-    }
-
-
-    public int getIdEmprestimo() {
-        return idEmprestimo;
-    }
+    private Date dataEmprestimo;
+    private Date dataDevolucao;
 
     public int getIdLivro() {
         return idLivro;
-    }
-
-    public int getIdAutor() {
-        return idAutor;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public String getDataDeCadastro() {
-        return dataDeCadastro;
-    }
-
-
-    public void setIdEmprestimo(int idEmprestimo) {
-        this.idEmprestimo = idEmprestimo;
     }
 
     public void setIdLivro(int idLivro) {
         this.idLivro = idLivro;
     }
 
+    public int getIdEmprestimo() {
+        return idEmprestimo;
+    }
+
+    public void setIdEmprestimo(int idEmprestimo) {
+        this.idEmprestimo = idEmprestimo;
+    }
+
+    public int getIdAutor() {
+        return idAutor;
+    }
+
     public void setIdAutor(int idAutor) {
         this.idAutor = idAutor;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public Date getDataEmprestimo() {
+        return dataEmprestimo;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDataEmprestimo(Date dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
     }
 
-    public void setDataDeCadastro(String dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
+    public Date getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 }
