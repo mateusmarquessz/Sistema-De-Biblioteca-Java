@@ -18,7 +18,7 @@ IDE: IntelliJ IDEA para o desenvolvimento.
 ## Estrutura do Projeto
 A estrutura do projeto é a seguinte:
 Sistema-De-Biblioteca-Java/
-│
+<p>│
 ├── .idea/                   # Configurações da IDE
 ├── src/                     # Código fonte do projeto
 │   ├── main/
@@ -27,5 +27,5 @@ Sistema-De-Biblioteca-Java/
 ├── .gitignore               # Arquivos a serem ignorados pelo Git
 ├── Sistema-De-Biblioteca-Java.iml   # Arquivo de módulo do IntelliJ IDEA
 └── README.md                # Este arquivo
-
+<p>
 Esta em Desenvolvimento
