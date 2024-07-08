@@ -1,7 +1,7 @@
-#Sistema De Biblioteca Java
+##Sistema De Biblioteca Java
 Sistema de uma biblioteca em Java
 
-#Em Desenvolvimento
+##Em Desenvolvimento
 Este projeto está atualmente em desenvolvimento. Contribuições são bem-vindas!
 
 #Sobre o Projeto
