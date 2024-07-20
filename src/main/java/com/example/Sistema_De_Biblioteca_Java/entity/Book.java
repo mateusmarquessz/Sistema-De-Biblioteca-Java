@@ -19,7 +19,6 @@ public class Book {
     private String edition;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
 
     // Getters and setters
     public Long getId() {
@@ -92,13 +91,5 @@ public class Book {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
     }
 }
