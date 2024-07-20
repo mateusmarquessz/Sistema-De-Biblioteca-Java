@@ -26,6 +26,12 @@ public class UserController {
         return service.findAll();
     }
 
+    //Pega o Usuario pelo ID
+    @GetMapping("/{id}")
+    public Users getUserById(@PathVariable long id) {
+        return service.findById(id);
+    }
+
     //Cria Usuario
     @PostMapping
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
@@ -38,6 +44,13 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //Atualizando Usuario
+    @PutMapping("/{id}")
+    public ResponseEntity<Users> updateUser(@PathVariable long id, @RequestBody Users user) {
+        Users updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     // Endpoints para criar, atualizar, deletar usuários, login, logout, etc.
