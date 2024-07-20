@@ -1,6 +1,7 @@
 package com.example.Sistema_De_Biblioteca_Java.controller;
 
 import com.example.Sistema_De_Biblioteca_Java.entity.Users;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.Sistema_De_Biblioteca_Java.service.UserService;
@@ -31,5 +32,13 @@ public class UserController {
         Users createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
     }
+
+    //Deletando Usuario
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
     // Endpoints para criar, atualizar, deletar usuários, login, logout, etc.
 }
