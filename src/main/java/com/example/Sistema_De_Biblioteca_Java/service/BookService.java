@@ -45,17 +45,18 @@ public class BookService {
     }
 
     //Atualiza Book
-    public Book updateBook(Book book, long id) {
-        bookRepository.findById(id).
-                orElseThrow(()-> new ResourceNotFoundException("Book not found with id: "+ id));
+    public Book updateBook(long id, Book book) {
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
 
-        book.setName(book.getName());
-        book.setCategory(book.getCategory());
-        book.setIsbn(book.getIsbn());
-        book.setQtdPages(book.getQtdPages());
-        book.setEdition(book.getEdition());
+        existingBook.setName(book.getName());
+        existingBook.setCategory(book.getCategory());
+        existingBook.setIsbn(book.getIsbn());
+        existingBook.setQtdPages(book.getQtdPages());
+        existingBook.setEdition(book.getEdition());
+        existingBook.setUpdatedAt(LocalDateTime.now());
 
-        return bookRepository.save(book);
+        return bookRepository.save(existingBook);
     }
 
     // Métodos para criar, atualizar, deletar, listar e encontrar livros

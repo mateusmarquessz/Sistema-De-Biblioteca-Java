@@ -1,11 +1,10 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -21,6 +20,11 @@ public class Users {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "users")
+    private List<Borrow> borrows;
+
+    public Users(){}
 
     public Long getId() {
         return id;
@@ -60,5 +64,13 @@ public class Users {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Borrow> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(List<Borrow> borrows) {
+        this.borrows = borrows;
     }
 }
