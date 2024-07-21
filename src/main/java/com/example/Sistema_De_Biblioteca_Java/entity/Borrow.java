@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 
 public class Borrow {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private Users users;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
@@ -32,11 +32,11 @@ public class Borrow {
     }
 
     public Users getUser() {
-        return user;
+        return users;
     }
 
     public void setUser(Users user) {
-        this.user = user;
+        this.users = user;
     }
 
     public Book getBook() {
