@@ -2,6 +2,7 @@ package com.example.Sistema_De_Biblioteca_Java.controller;
 
 import com.example.Sistema_De_Biblioteca_Java.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.Sistema_De_Biblioteca_Java.service.BookService;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     private BookService bookService;
+
 
     //Pega todos os livros
     @GetMapping()
@@ -48,6 +50,19 @@ public class BookController {
     public ResponseEntity<Book> updateBook(@PathVariable long id, @RequestBody Book book) {
         Book updatedBook = bookService.updateBook(id, book);
         return ResponseEntity.ok(updatedBook);
+    }
+
+    // Pegar um livro
+    @PostMapping("/take/{bookId}")
+    public ResponseEntity<String> takeBook(@PathVariable Long bookId) {
+        Optional<Book> bookOptional  = Optional.ofNullable(bookService.getBookById(bookId));
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            String message = bookService.userTakesBook(book);
+            return ResponseEntity.ok(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
+        }
     }
     // Endpoints para criar, atualizar, deletar, listar e encontrar livros
 }

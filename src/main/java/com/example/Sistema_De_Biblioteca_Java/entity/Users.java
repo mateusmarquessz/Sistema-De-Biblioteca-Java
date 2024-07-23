@@ -1,17 +1,20 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String password;
 
@@ -20,9 +23,6 @@ public class Users {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "users")
-    private List<Borrow> borrows;
 
     public Users(){}
 
@@ -66,11 +66,4 @@ public class Users {
         this.createdAt = createdAt;
     }
 
-    public List<Borrow> getBorrows() {
-        return borrows;
-    }
-
-    public void setBorrows(List<Borrow> borrows) {
-        this.borrows = borrows;
-    }
 }

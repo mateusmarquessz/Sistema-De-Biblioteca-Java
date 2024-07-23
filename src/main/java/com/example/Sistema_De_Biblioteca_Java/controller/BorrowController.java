@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.Sistema_De_Biblioteca_Java.service.BorrowService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,35 +16,46 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
 
-
-    @PostMapping
-    public ResponseEntity<Borrow> createBorrow(@RequestBody Borrow borrow) {
-        Borrow savedBorrow = borrowService.saveBorrow(borrow);
-        return ResponseEntity.ok(savedBorrow);
+    // Endpoint para emprestar um livro
+    @PostMapping("/borrow")
+    public ResponseEntity<String> borrowBook(@RequestParam Long bookId, @RequestParam Long userId) {
+        try {
+            borrowService.borrowBook(bookId, userId);
+            return ResponseEntity.ok("Book borrowed successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Borrow> getBorrowById(@PathVariable Long id) {
-        Optional<Borrow> borrow = borrowService.getBorrowById(id);
-        return borrow.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    // Endpoint para devolver um livro
+    @PostMapping("/return")
+    public ResponseEntity<String> returnBook(@RequestBody Map<String, Long> requestBody) {
+        Long borrowId = requestBody.get("borrowId");
+        if (borrowId == null) {
+            return ResponseEntity.badRequest().body("Missing 'borrowId' parameter");
+        }
+        try {
+            borrowService.returnBook(borrowId);
+            return ResponseEntity.ok("Book returned successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
+    // Endpoint para listar todos os empréstimos
     @GetMapping
     public ResponseEntity<List<Borrow>> getAllBorrows() {
         List<Borrow> borrows = borrowService.getAllBorrows();
         return ResponseEntity.ok(borrows);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Borrow> updateBorrow(@PathVariable Long id, @RequestBody Borrow borrowDetails) {
-        Borrow updatedBorrow = borrowService.updateBorrow(id, borrowDetails);
-        return ResponseEntity.ok(updatedBorrow);
+    // Endpoint para obter detalhes de um empréstimo específico
+    @GetMapping("/{id}")
+    public ResponseEntity<Borrow> getBorrowById(@PathVariable Long id) {
+        Optional<Borrow> borrow = borrowService.getBorrowById(id);
+        return borrow.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBorrow(@PathVariable Long id) {
-        borrowService.deleteBorrow(id);
-        return ResponseEntity.noContent().build();
-    }
 // Endpoints para emprestar e devolver livros
 }

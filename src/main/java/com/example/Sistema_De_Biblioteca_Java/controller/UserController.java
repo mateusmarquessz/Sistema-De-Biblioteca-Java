@@ -1,12 +1,10 @@
 package com.example.Sistema_De_Biblioteca_Java.controller;
 
 import com.example.Sistema_De_Biblioteca_Java.entity.Users;
-import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.Sistema_De_Biblioteca_Java.service.UserService;
 
-import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 @RestController

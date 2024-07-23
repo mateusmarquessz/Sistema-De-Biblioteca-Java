@@ -1,27 +1,33 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 
 public class Borrow {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime borrowAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime untilAt;
+
 
     public Long getId() {
         return id;
@@ -51,7 +57,7 @@ public class Borrow {
         return borrowAt;
     }
 
-    public void setBorrowAt(LocalDateTime borrowAt) {
+    public void setBorrowAt(LocalDateTime borrowAt) {  // Ajuste o tipo para LocalDateTime
         this.borrowAt = borrowAt;
     }
 
@@ -59,7 +65,7 @@ public class Borrow {
         return untilAt;
     }
 
-    public void setUntilAt(LocalDateTime untilAt) {
+    public void setUntilAt(LocalDateTime untilAt) {  // Ajuste o tipo para LocalDateTime
         this.untilAt = untilAt;
     }
 }

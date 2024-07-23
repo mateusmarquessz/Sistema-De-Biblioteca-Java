@@ -1,9 +1,7 @@
 package com.example.Sistema_De_Biblioteca_Java.service;
 
 import Exceptions.BookNotFoundException;
-import Exceptions.ResourceNotFoundException;
 import com.example.Sistema_De_Biblioteca_Java.entity.Book;
-import com.example.Sistema_De_Biblioteca_Java.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,15 +9,13 @@ import com.example.Sistema_De_Biblioteca_Java.repository.BookRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public BookService(UserRepository userRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     //Lista todos os Livros
     public List<Book> getAllBooks() {
@@ -34,6 +30,9 @@ public class BookService {
 
     //Cria Livro no Banco
     public Book createBook(Book book) {
+        if(book.getAvailable() == null){
+            book.setAvailable(true);
+        }
         book.setCreatedAt(LocalDateTime.now());
         return bookRepository.save(book);
     }
@@ -46,17 +45,31 @@ public class BookService {
 
     //Atualiza Book
     public Book updateBook(long id, Book book) {
-        Book existingBook = bookRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+        Optional<Book> existingBook = bookRepository.findById(id);
+        if(existingBook.isPresent()) {
+            Book updatedBook = existingBook.get();
+            updatedBook.setName(book.getName());
+            updatedBook.setCategory(book.getCategory());
+            updatedBook.setIsbn(book.getIsbn());
+            updatedBook.setQtdPages(book.getQtdPages());
+            updatedBook.setEdition(book.getEdition());
+            updatedBook.setUpdatedAt(LocalDateTime.now());
+            return bookRepository.save(updatedBook);
+        }else{
+            throw new BookNotFoundException("Book not found with id: "+ id);
+        }
 
-        existingBook.setName(book.getName());
-        existingBook.setCategory(book.getCategory());
-        existingBook.setIsbn(book.getIsbn());
-        existingBook.setQtdPages(book.getQtdPages());
-        existingBook.setEdition(book.getEdition());
-        existingBook.setUpdatedAt(LocalDateTime.now());
+    }
 
-        return bookRepository.save(existingBook);
+    //Emprestimo
+    public String userTakesBook(Book book) {
+        if (book.checkAvailability()) {
+            book.setAvailable(false);
+            bookRepository.save(book);
+            return "Book has been successfully taken.";
+        } else {
+            return "Book is not available.";
+        }
     }
 
     // Métodos para criar, atualizar, deletar, listar e encontrar livros

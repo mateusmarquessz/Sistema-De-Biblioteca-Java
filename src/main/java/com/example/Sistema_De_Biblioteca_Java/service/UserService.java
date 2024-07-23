@@ -2,8 +2,9 @@ package com.example.Sistema_De_Biblioteca_Java.service;
 import Exceptions.ResourceNotFoundException;
 import Exceptions.UserNotFoundException;
 import com.example.Sistema_De_Biblioteca_Java.entity.Users;
+import com.example.Sistema_De_Biblioteca_Java.repository.BorrowRepository;
 import jakarta.transaction.Transactional;
-import org.apache.tomcat.util.buf.UEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Sistema_De_Biblioteca_Java.repository.UserRepository;
@@ -11,13 +12,16 @@ import com.example.Sistema_De_Biblioteca_Java.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BorrowRepository borrowRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;

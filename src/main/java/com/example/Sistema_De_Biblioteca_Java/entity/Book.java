@@ -1,16 +1,18 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -26,10 +28,7 @@ public class Book {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    private Boolean available;
-
-    @OneToMany(mappedBy = "book")
-    private List<Borrow> borrows;
+    private Boolean available = true;
 
     // Getters and setters
     public Long getId() {
@@ -113,6 +112,7 @@ public class Book {
     }
 
     public boolean checkAvailability() {
-        return this.available;
+        return Boolean.TRUE.equals(this.available);
     }
+
 }
