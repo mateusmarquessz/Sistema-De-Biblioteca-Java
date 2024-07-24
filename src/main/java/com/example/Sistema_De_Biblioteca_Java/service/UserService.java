@@ -50,15 +50,19 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    //Atualiza Usuario
-    public Users updateUser(Long userId, Users user) {
+    //Atualiza Nome do Usuario
+    public Users updateUserName(Long userId, Users user) {
         Users users = userRepository.findById(userId).
                 orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
         users.setName(user.getName());
-        users.setPassword(user.getPassword());
-        users.setUpdatedAt(LocalDateTime.now());
+        return userRepository.save(users);
+    }
 
+    //Atualiza Senha do Usuario
+    public Users updateUserPassword(Long userId, Users user){
+        Users users = userRepository.findById(userId).
+                orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        users.setPassword(user.getPassword());
         return userRepository.save(users);
     }
 

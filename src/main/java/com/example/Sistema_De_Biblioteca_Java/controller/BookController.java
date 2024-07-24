@@ -51,18 +51,5 @@ public class BookController {
         Book updatedBook = bookService.updateBook(id, book);
         return ResponseEntity.ok(updatedBook);
     }
-
-    // Pegar um livro
-    @PostMapping("/take/{bookId}")
-    public ResponseEntity<String> takeBook(@PathVariable Long bookId) {
-        Optional<Book> bookOptional  = Optional.ofNullable(bookService.getBookById(bookId));
-        if (bookOptional.isPresent()) {
-            Book book = bookOptional.get();
-            String message = bookService.userTakesBook(book);
-            return ResponseEntity.ok(message);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
-        }
-    }
     // Endpoints para criar, atualizar, deletar, listar e encontrar livros
 }

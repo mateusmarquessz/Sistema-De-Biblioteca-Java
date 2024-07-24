@@ -16,12 +16,12 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
 
-    // Endpoint para emprestar um livro
-    @PostMapping("/borrow")
-    public ResponseEntity<String> borrowBook(@RequestParam Long bookId, @RequestParam Long userId) {
+    // Endpoint para criar e salvar um novo empréstimo
+    @PostMapping("/create")
+    public ResponseEntity<String> createAndSaveBorrow(@RequestParam Long bookId, @RequestParam Long userId) {
         try {
-            borrowService.borrowBook(bookId, userId);
-            return ResponseEntity.ok("Book borrowed successfully");
+            borrowService.createAndSaveBorrow(bookId, userId);
+            return ResponseEntity.ok("Borrow created and saved successfully");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

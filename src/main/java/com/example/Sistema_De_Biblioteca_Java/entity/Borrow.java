@@ -1,11 +1,10 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,11 +14,11 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -57,7 +56,7 @@ public class Borrow {
         return borrowAt;
     }
 
-    public void setBorrowAt(LocalDateTime borrowAt) {  // Ajuste o tipo para LocalDateTime
+    public void setBorrowAt(LocalDateTime borrowAt) {
         this.borrowAt = borrowAt;
     }
 

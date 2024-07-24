@@ -61,16 +61,5 @@ public class BookService {
 
     }
 
-    //Emprestimo
-    public String userTakesBook(Book book) {
-        if (book.checkAvailability()) {
-            book.setAvailable(false);
-            bookRepository.save(book);
-            return "Book has been successfully taken.";
-        } else {
-            return "Book is not available.";
-        }
-    }
-
     // Métodos para criar, atualizar, deletar, listar e encontrar livros
 }

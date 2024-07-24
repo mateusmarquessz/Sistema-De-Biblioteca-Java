@@ -1,11 +1,9 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +27,10 @@ public class Book {
     private LocalDateTime updatedAt;
 
     private Boolean available = true;
+
+    @OneToMany(mappedBy = "book")
+    @JsonIgnore
+    private List<Borrow> borrows;
 
     // Getters and setters
     public Long getId() {

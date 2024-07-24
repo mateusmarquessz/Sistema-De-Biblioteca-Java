@@ -44,12 +44,20 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    //Atualizando Usuario
-    @PutMapping("/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable long id, @RequestBody Users user) {
-        Users updatedUser = userService.updateUser(id, user);
+    //Atualizando nome Usuario
+    @PutMapping("/name/{id}")
+    public ResponseEntity<Users> updateUserName(@PathVariable long id, @RequestBody Users user) {
+        Users updatedUser = userService.updateUserName(id, user);
         return ResponseEntity.ok(updatedUser);
     }
+
+    //Atualiza senha Usuario
+    @PutMapping("/password/{id}")
+    public ResponseEntity<Users> updateUserPassword(@PathVariable long id, @RequestBody Users user) {
+        Users updatedUser = userService.updateUserPassword(id, user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
 
     // Endpoints para criar, atualizar, deletar usuários, login, logout, etc.
 }
