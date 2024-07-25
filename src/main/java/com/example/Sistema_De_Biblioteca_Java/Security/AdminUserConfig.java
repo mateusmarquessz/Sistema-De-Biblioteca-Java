@@ -1,4 +1,4 @@
-package com.example.Sistema_De_Biblioteca_Java.controller.Security;
+package com.example.Sistema_De_Biblioteca_Java.Security;
 
 import com.example.Sistema_De_Biblioteca_Java.entity.Role;
 import com.example.Sistema_De_Biblioteca_Java.entity.Users;
@@ -31,10 +31,16 @@ public class AdminUserConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         var roleAdmin = roleRepository.findByName(Role.Values.ADMIN.name());
 
+        // Crie o papel ADMIN se não existir
         if (roleAdmin == null) {
-            System.err.println("Admin role not found, unable to create admin user.");
-            return; // Exit early if roleAdmin is not found
+            Role newRoleAdmin = new Role();
+            newRoleAdmin.setName(Role.Values.ADMIN.name());
+            roleAdmin = roleRepository.save(newRoleAdmin);
+            System.out.println("Admin role created.");
         }
+
+        // Torne roleAdmin efetivamente final para uso na expressão lambda
+        final Role finalRoleAdmin = roleAdmin;
 
         var userAdmin = userRepository.findByName("admin");
 
@@ -44,8 +50,9 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new Users();
                     user.setName("admin");
                     user.setPassword(passwordEncoder.encode("123"));
-                    user.setRoles(Set.of(roleAdmin)); // This will not cause NullPointerException
+                    user.setRoles(Set.of(finalRoleAdmin));
                     userRepository.save(user);
+                    System.out.println("admin user created.");
                 }
         );
     }

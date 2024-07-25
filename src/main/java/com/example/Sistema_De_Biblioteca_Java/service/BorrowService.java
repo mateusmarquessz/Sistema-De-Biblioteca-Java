@@ -61,8 +61,10 @@ public class BorrowService {
         if (borrow.isEmpty()) {
             throw new RuntimeException("Borrow record not found");
         }
-
+        Book book = borrow.get().getBook();
         // Remove o registro de empréstimo
+        book.setAvailable(true);
+        bookRepository.save(book);
         borrowRepository.delete(borrow.get());
     }
 

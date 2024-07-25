@@ -6,6 +6,7 @@ import com.example.Sistema_De_Biblioteca_Java.repository.BorrowRepository;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.Sistema_De_Biblioteca_Java.repository.UserRepository;
 
@@ -22,6 +23,8 @@ public class UserService {
 
     @Autowired
     private BorrowRepository borrowRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -41,6 +44,7 @@ public class UserService {
     //Cria Usuario no Banco
     public Users createUser(Users user) {
         user.setCreatedAt(LocalDateTime.now());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

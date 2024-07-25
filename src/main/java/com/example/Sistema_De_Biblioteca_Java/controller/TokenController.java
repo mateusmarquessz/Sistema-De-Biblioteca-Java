@@ -1,8 +1,7 @@
 package com.example.Sistema_De_Biblioteca_Java.controller;
 
-import com.example.Sistema_De_Biblioteca_Java.controller.dto.LoginRequest;
-import com.example.Sistema_De_Biblioteca_Java.controller.dto.LoginResponse;
-import com.example.Sistema_De_Biblioteca_Java.entity.Users;
+import com.example.Sistema_De_Biblioteca_Java.dto.LoginRequest;
+import com.example.Sistema_De_Biblioteca_Java.dto.LoginResponse;
 import com.example.Sistema_De_Biblioteca_Java.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

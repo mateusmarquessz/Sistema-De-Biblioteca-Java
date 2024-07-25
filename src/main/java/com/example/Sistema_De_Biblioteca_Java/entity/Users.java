@@ -1,13 +1,12 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
-import com.example.Sistema_De_Biblioteca_Java.controller.dto.LoginRequest;
+import com.example.Sistema_De_Biblioteca_Java.dto.LoginRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,14 +14,11 @@ import java.util.Set;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
-
-    @JsonIgnore
-    @Column(nullable = false)
     private String password;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

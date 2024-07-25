@@ -34,6 +34,7 @@ public class BookService {
             book.setAvailable(true);
         }
         book.setCreatedAt(LocalDateTime.now());
+
         return bookRepository.save(book);
     }
 
