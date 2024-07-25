@@ -1,22 +1,28 @@
 package com.example.Sistema_De_Biblioteca_Java.entity;
 
+import com.example.Sistema_De_Biblioteca_Java.controller.dto.LoginRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
 
 @Entity
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
+
+    @JsonIgnore
+    @Column(nullable = false)
     private String password;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -29,8 +35,17 @@ public class Users {
     @JsonIgnore
     private List<Borrow> borrows;
 
+    @ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    public Users(){}
+    public Users() {
+
+    }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -78,5 +93,17 @@ public class Users {
 
     public void setBorrows(List<Borrow> borrows) {
         this.borrows = borrows;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }
