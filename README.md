@@ -36,5 +36,9 @@
   <p>Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias e correções.</p>
 
   <p>Desenvolvido por <a href="https://github.com/mateusmarquessz">Mateus Marques</a></p>
+
+  <h2>
+     <img src="https://github.com/mateusmarquessz/Sistema-De-Biblioteca-Java/blob/main/Diagrama.jpg" alt="Diagrama">
+  </h2>
 </body>
 </html>
