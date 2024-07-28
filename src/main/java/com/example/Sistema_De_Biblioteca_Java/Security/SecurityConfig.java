@@ -67,13 +67,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-    /*
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
-                .anyRequest().permitAll() 
-                .and()
-                .csrf().disable();
-        return http.build();
-    }*/
-

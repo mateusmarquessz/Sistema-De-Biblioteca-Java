@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestController
 public class TokenController {
