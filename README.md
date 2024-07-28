@@ -22,6 +22,7 @@
     <li><strong>OAuth 2:</strong> Protocolo de autorização para permitir o acesso seguro às APIs.</li>
     <li><strong>PostgreSQL:</strong> Sistema de gerenciamento de banco de dados utilizado para armazenar as informações da biblioteca.</li>
     <li><strong>Maven:</strong> Ferramenta de automação de build e gerenciamento de dependências.</li>
+    <li><strong>Docker:</strong>Docker é um conjunto de produtos de plataforma como serviço que usam virtualização de nível de sistema operacional para entregar software em pacotes chamados contêineres. .</li>
   </ul>
 
   <h2>Requisitos</h2>
